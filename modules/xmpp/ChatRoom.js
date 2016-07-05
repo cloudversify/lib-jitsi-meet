@@ -291,7 +291,8 @@ ChatRoom.prototype.onPresence = function (pres) {
             if(!this.recording) {
                 this.recording = new Recorder(this.options.recordingType,
                     this.eventEmitter, this.connection, this.focusMucJid,
-                    this.options.jirecon, this.roomjid);
+                    this.options.jirecon, this.roomjid,
+                    this.options.googleAccessToken);
                 if(this.lastJibri)
                     this.recording.handleJibriPresence(this.lastJibri);
             }
@@ -368,6 +369,16 @@ ChatRoom.prototype.onPresence = function (pres) {
         if(this.recording)
             this.recording.handleJibriPresence(jibri);
     }
+};
+
+/**
+ * Obtains the list of recording streams. See YouTubeAPI.getLiveStreams for
+ * the description. 
+ * @returns {Promise|null} null is returned if YouTubeAPI is not enabled in
+ * the current session. See YouTubeAPI.getLiveStreams for more details.
+ */
+ChatRoom.prototype.getRecordingStreams = function () {
+    return this.recording.getRecordingStreams();
 };
 
 /**
