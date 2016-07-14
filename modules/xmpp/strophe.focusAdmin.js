@@ -1,17 +1,20 @@
 var logger = require("jitsi-meet-logger").getLogger(__filename);
 
+success = function(){};
+failure = function(){};
 module.exports = function(XMPP) {
     Strophe.addConnectionPlugin('focusAdmin', {
         connection: null,
         init: function(conn){
             this.connection = conn;
         },
-        sendRemoteMuteAudio: function (jid, success, failure){
+        sendRemoteMuteAudio: function (jid, ssrc){
             var iq = $iq({to: jid,
                 type: 'set'})
                 .c('focusAdmin', {xmlns: 'cloudversify:focusAdmin',
                     action: 'admin-mute-audio',
-                    target: jid
+                    target: jid,
+                    ssrc: ssrc
                 });
 
             // Calling tree() to print something useful
@@ -23,12 +26,13 @@ module.exports = function(XMPP) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteAudio: function (jid, success, failure){
+        sendRemoteUnmuteAudio: function (jid, ssrc){
             var iq = $iq({to: jid,
                 type: 'set'})
                 .c('focusAdmin', {xmlns: 'cloudversify:focusAdmin',
                     action: 'admin-unmute-audio',
-                    target: jid
+                    target: jid,
+                    ssrc: ssrc
                 });
 
             // Calling tree() to print something useful
@@ -40,12 +44,13 @@ module.exports = function(XMPP) {
                 success,
                 failure);
         },
-        sendRemoteMuteVideo: function (jid, success, failure){
+        sendRemoteMuteVideo: function (jid, ssrc){
             var iq = $iq({to: jid,
                 type: 'set'})
                 .c('focusAdmin', {xmlns: 'cloudversify:focusAdmin',
                     action: 'admin-mute-video',
-                    target: jid
+                    target: jid,
+                    ssrc: ssrc
                 });
 
             // Calling tree() to print something useful
@@ -57,12 +62,13 @@ module.exports = function(XMPP) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteVideo: function (jid, success, failure){
+        sendRemoteUnmuteVideo: function (jid, ssrc){
             var iq = $iq({to: jid,
                 type: 'set'})
                 .c('focusAdmin', {xmlns: 'cloudversify:focusAdmin',
                     action: 'admin-unmute-video',
-                    target: jid
+                    target: jid,
+                    ssrc: ssrc
                 });
 
             // Calling tree() to print something useful

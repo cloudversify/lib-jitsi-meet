@@ -252,20 +252,20 @@ XMPP.prototype.createRoom = function (roomName, options, settings) {
     return this.connection.emuc.createRoom(roomjid, null, options, settings);
 }
 
-XMPP.prototype.sendRemoteMuteAudio = function (jid, success, failure) {
-    return this.connection.focusAdmin.sendRemoteMuteAudio(jid, success, failure);
+XMPP.prototype.sendRemoteMuteAudio = function (jid, ssrc) {
+    return this.connection.focusAdmin.sendRemoteMuteAudio(jid, ssrc);
 }
 
-XMPP.prototype.sendRemoteUnmuteAudio = function (jid, success, failure) {
-    return this.connection.focusAdmin.sendRemoteUnmuteAudio(jid, success, failure);
+XMPP.prototype.sendRemoteUnmuteAudio = function (jid, ssrc) {
+    return this.connection.focusAdmin.sendRemoteUnmuteAudio(jid, ssrc);
 }
 
-XMPP.prototype.sendRemoteMuteVideo = function (jid, success, failure) {
-    return this.connection.focusAdmin.sendRemoteMuteVideo(jid, success, failure);
+XMPP.prototype.sendRemoteMuteVideo = function (jid, ssrc) {
+    return this.connection.focusAdmin.sendRemoteMuteVideo(jid,ssrc);
 }
 
-XMPP.prototype.sendRemoteUnmuteVideo = function (jid, success, failure) {
-    return this.connection.focusAdmin.sendRemoteUnmuteVideo(jid, success, failure);
+XMPP.prototype.sendRemoteUnmuteVideo = function (jid, ssrc) {
+    return this.connection.focusAdmin.sendRemoteUnmuteVideo(jid, ssrc);
 }
 
 XMPP.prototype.addListener = function(type, listener) {
