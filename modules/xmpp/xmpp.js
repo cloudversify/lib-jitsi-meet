@@ -31,7 +31,7 @@ function initStrophePlugins(XMPP) {
     require("./strophe.util")();
     require("./strophe.ping")(XMPP, XMPP.eventEmitter);
     require("./strophe.rayo")();
-    require("./strophe.focusAdmin")();
+    require("./strophe.focusAdmin")(XMPP, XMPP.eventEmitter);
     require("./strophe.logger")();
 }
 

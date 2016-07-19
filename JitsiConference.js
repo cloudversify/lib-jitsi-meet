@@ -918,18 +918,22 @@ JitsiConference.prototype.getConnectionTimes = function () {
 };
 
 JitsiConference.prototype.sendRemoteMuteAudio = function (jid,ssrc) {
-    this.xmpp.sendRemoteMuteAudio(jid,ssrc)
+    console.log("sending to focus ", this.room.focusMucJid)
+    this.xmpp.sendRemoteMuteAudio(this.room.focusMucJid,ssrc)
 };
 
 JitsiConference.prototype.sendRemoteMuteVideo = function (jid,ssrc) {
-    this.xmpp.sendRemoteMuteVideo(jid,ssrc)
+    console.log("sending to focus ", this.room.focusMucJid)
+    this.xmpp.sendRemoteMuteVideo(this.room.focusMucJid,ssrc)
 };
 JitsiConference.prototype.sendRemoteUnmuteAudio = function (jid,ssrc) {
-    this.xmpp.sendRemoteUnmuteAudio(jid,ssrc)
+    console.log("sending to focus ", this.room.focusMucJid)
+    this.xmpp.sendRemoteUnmuteAudio(this.room.focusMucJid,ssrc)
 };
 
 JitsiConference.prototype.sendRemoteUnmuteVideo = function (jid,ssrc) {
-    this.xmpp.sendRemoteUnmuteVideo(jid,ssrc)
+    console.log("sending to focus ", this.room.focusMucJid)
+    this.xmpp.sendRemoteUnmuteVideo(this.room.focusMucJid,ssrc)
 };
 /**
  * Sets a property for the local participant.
