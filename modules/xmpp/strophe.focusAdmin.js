@@ -1,31 +1,39 @@
 var logger = require("jitsi-meet-logger").getLogger(__filename);
-
-success = function(){};
-failure = function(){};
-module.exports = function(XMPP) {
+//var XMPPEvents = require("../../service/xmpp/XMPPEvents");
+var JitsiConferenceEvents = require("../../JitsiConferenceEvents");
+success = function(){
+    console.log('sendIQ returned success')
+};
+failure = function(){
+    console.log('sendIQ returned failure')
+};
+module.exports = function(XMPP, eventEmitter) {
     Strophe.addConnectionPlugin('focusAdmin', {
         connection: null,
         init: function(conn){
+
             this.connection = conn;
-            this.connection.addHandler(this.muteVideo.bind(this), 'cloudversify:focusAdmin', 'iq', 'mute', null, null);)
+            this.connection.addHandler(this.muteVideo.bind(this), 'cloudversify:mutevideo', 'iq', 'set', null, null, null);
+            this.connection.addHandler(this.muteAudio.bind(this), 'cloudversify:muteaudio', 'iq', 'set', null, null, null);
+            this.connection.addHandler(this.unmuteVideo.bind(this), 'cloudversify:unmutevideo', 'iq', 'set', null, null, null);
+            this.connection.addHandler(this.unmuteAudio.bind(this), 'cloudversify:unmuteaudio', 'iq', 'set', null, null, null);
         },
-        sendRemoteMuteAudio: function (jid, ssrc){
-            var iq = $iq({to: jid,
+        sendRemoteMuteAudio: function (focusJid, spoofJid, ssrc){
+            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
+
+            //console.log("sending to JID: ", focusJid)
+            console.log("sending to JID: ", spoofJid)
+            var iq = $iq({to: spoofJid,
+                //xmlns:'cloudversify:focusAdmin',
+                //action: 'mute',
                 type: 'set'})
-                .c('jingle', {xmlns: 'urn:xmpp:jingle:1',
-                    action: 'source-remove'
-                })
-                .c('content',{name:"audio"
-                })
-                .c("description",{xmlns:"urn:xmpp:jingle:apps:rtp:1",
-                    media : "audio"
-                })
-                .c('source',{xmlns:"urn:xmpp:jingle:apps:rtp:ssma:0",
-                    ssrc:ssrc
-                })
-                .c('ssrc-info', {xmlns:"http://jitsi.org/jitmeet",
-                    owner:jid
-                });
+
+            // var iq = $iq({to: spoofJid,
+            //     type: 'set',
+            //     id: 'muteVideo',
+            //     xmlns: 'cloudversify:focusAdmin'})
+                .c('mute', {xmlns: 'cloudversify:muteaudio',
+                    action: 'muteAudio'})
 
             // Calling tree() to print something useful
             iq = iq.tree();
@@ -36,50 +44,48 @@ module.exports = function(XMPP) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteAudio: function (jid, ssrc){
-            // var iq = $iq({to: jid,
-            //     type: 'set'})
-            //     .c('jingle', {xmlns: 'urn:xmpp:jingle:1',
-            //         action: 'source-remove'
-            //     })
-            //     .c('content',{name="audio"
-            //     })
-            //     .c("description",{xmlns="urn:xmpp:jingle:apps:rtp:1",
-            //         media = "audio"
-            //     })
-            //     .c('source',{xmlns="urn:xmpp:jingle:apps:rtp:ssma:0",
-            //         ssrc=ssrc
-            //     })
-            //     .c('ssrc-info', {xmlns="http://jitsi.org/jitmeet",
-            //         owner=jid
-            //     });
+        sendRemoteUnmuteAudio: function (focusJid, spoofJid, ssrc){
+            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
 
-            // // Calling tree() to print something useful
-            // iq = iq.tree();
-            // logger.info("Sending mute", iq);
-            // console.log('sending mute', iq);
-
-            // this.connection.sendIQ(iq,
-            //     success,
-            //     failure);
-        },
-        sendRemoteMuteVideo: function (jid, ssrc){
-            var iq = $iq({to: jid,
+            //console.log("sending to JID: ", focusJid)
+            console.log("sending to JID: ", spoofJid)
+            var iq = $iq({to: spoofJid,
+                //xmlns:'cloudversify:focusAdmin',
+                //action: 'mute',
                 type: 'set'})
-                .c('jingle', {xmlns: 'urn:xmpp:jingle:1',
-                    action: 'source-remove'
-                })
-                .c('content',{name:"video"
-                })
-                .c("description",{xmlns:"urn:xmpp:jingle:apps:rtp:1",
-                    media : "video"
-                })
-                .c('source',{xmlns:"urn:xmpp:jingle:apps:rtp:ssma:0",
-                    ssrc:ssrc
-                })
-                .c('ssrc-info', {xmlns:"http://jitsi.org/jitmeet",
-                    owner:jid
-                });
+
+            // var iq = $iq({to: spoofJid,
+            //     type: 'set',
+            //     id: 'muteVideo',
+            //     xmlns: 'cloudversify:focusAdmin'})
+                .c('unmute', {xmlns: 'cloudversify:unmuteaudio',
+                    action: 'unmuteAudio'})
+
+            // Calling tree() to print something useful
+            iq = iq.tree();
+            logger.info("Sending unmute", iq);
+            console.log('sending unmute', iq);
+
+            this.connection.sendIQ(iq,
+                success,
+                failure);
+        },
+        sendRemoteMuteVideo: function (focusJid, spoofJid, ssrc){
+            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
+
+            //console.log("sending to JID: ", focusJid)
+            console.log("sending to JID: ", spoofJid)
+            var iq = $iq({to: spoofJid,
+                //xmlns:'cloudversify:focusAdmin',
+                //action: 'mute',
+                type: 'set'})
+
+            // var iq = $iq({to: spoofJid,
+            //     type: 'set',
+            //     id: 'muteVideo',
+            //     xmlns: 'cloudversify:focusAdmin'})
+                .c('mute', {xmlns: 'cloudversify:mutevideo',
+                    action: 'muteVideo'})
 
             // Calling tree() to print something useful
             iq = iq.tree();
@@ -90,44 +96,83 @@ module.exports = function(XMPP) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteVideo: function (jid, ssrc){
-            // var iq = $iq({to: jid,
-            //     type: 'set'})
-            //     .c('jingle', {xmlns: 'urn:xmpp:jingle:1',
-            //         action: 'source-remove'
-            //     })
-            //     .c('content',{name="audio"
-            //     })
-            //     .c("description",{xmlns="urn:xmpp:jingle:apps:rtp:1",
-            //         media = "audio"
-            //     })
-            //     .c('source',{xmlns="urn:xmpp:jingle:apps:rtp:ssma:0",
-            //         ssrc=ssrc
-            //     })
-            //     .c('ssrc-info', {xmlns="http://jitsi.org/jitmeet",
-            //         owner=jid
-            //     });
+        sendRemoteUnmuteVideo: function (focusJid, spoofJid, ssrc){
+            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
 
-            // // Calling tree() to print something useful
-            // iq = iq.tree();
-            // logger.info("Sending mute", iq);
-            // console.log('sending mute', iq);
+            //console.log("sending to JID: ", focusJid)
+            console.log("sending to JID: ", spoofJid)
+            var iq = $iq({to: spoofJid,
+                //xmlns:'cloudversify:focusAdmin',
+                //action: 'mute',
+                type: 'set'})
 
-            // this.connection.sendIQ(iq,
-            //     success,
-            //     failure);
-        }, 
+            // var iq = $iq({to: spoofJid,
+            //     type: 'set',
+            //     id: 'muteVideo',
+            //     xmlns: 'cloudversify:focusAdmin'})
+                .c('unmute', {xmlns: 'cloudversify:unmutevideo',
+                    action: 'unmuteVideo'})
+
+            // Calling tree() to print something useful
+            iq = iq.tree();
+            logger.info("Sending unmute", iq);
+            console.log('sending unmute', iq);
+
+            this.connection.sendIQ(iq,
+                success,
+                failure);
+        },
         muteVideo: function (iq){
-
+            var fromJid = iq.getAttribute('from');
+            // send ack first
+            var ack = $iq({type: 'result',
+                to: fromJid,
+                id: iq.getAttribute('id')
+            });
+            console.log("Mute Video event?", iq)
+            console.log('eventemitter: ', eventEmitter)
+            eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_VIDEO);
+            this.connection.send(ack);
+            return true;
         },
         unmuteVideo: function (iq){
-            
+            var fromJid = iq.getAttribute('from');
+            // send ack first
+            var ack = $iq({type: 'result',
+                to: fromJid,
+                id: iq.getAttribute('id')
+            });
+            console.log("Unmute Video event?", iq)
+            console.log('eventemitter: ', eventEmitter)
+            eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_VIDEO);
+            this.connection.send(ack);
+            return true;
         },
         muteAudio: function (iq){
-
+            var fromJid = iq.getAttribute('from');
+            // send ack first
+            var ack = $iq({type: 'result',
+                to: fromJid,
+                id: iq.getAttribute('id')
+            });
+            console.log("Mute Video event?", iq)
+            console.log('eventemitter: ', eventEmitter)
+            eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_AUDIO);
+            this.connection.send(ack);
+            return true;
         },
         unmuteAudio: function (iq){
-
-        },
+            var fromJid = iq.getAttribute('from');
+            // send ack first
+            var ack = $iq({type: 'result',
+                to: fromJid,
+                id: iq.getAttribute('id')
+            });
+            console.log("Unmute Video event?", iq)
+            console.log('eventemitter: ', eventEmitter)
+            eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_AUDIO);
+            this.connection.send(ack);
+            return true;
+        }
     });
 };

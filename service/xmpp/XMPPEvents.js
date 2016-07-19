@@ -158,5 +158,7 @@ var XMPPEvents = {
     // Designates an event indicating that the subject of the XMPP MUC has
     // changed.
     SUBJECT_CHANGED: "xmpp.subject_changed"
+
+
 };
 module.exports = XMPPEvents;
