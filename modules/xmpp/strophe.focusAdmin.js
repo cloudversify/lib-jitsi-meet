@@ -51,7 +51,7 @@ module.exports = function(XMPP, eventEmitter) {
         },
         sendRemoteMuteVideo: function (Jid){
             console.log("sending to JID: ", Jid)
-            var iq = $iq({to: spoofJid, type: 'set'})
+            var iq = $iq({to: Jid, type: 'set'})
                 .c('mute', {xmlns: 'cloudversify:mutevideo',
                     action: 'muteVideo'})
 
