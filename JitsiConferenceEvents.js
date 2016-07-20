@@ -135,7 +135,12 @@ var JitsiConferenceEvents = {
      * Indicates that a the value of a specific property of a specific
      * participant has changed.
      */
-    PARTICIPANT_PROPERTY_CHANGED: "conference.participant_property_changed"
+    PARTICIPANT_PROPERTY_CHANGED: "conference.participant_property_changed",
+
+    CLOUDVERSIFY_MUTE_VIDEO: "xmpp.mute_video",
+    CLOUDVERSIFY_MUTE_AUDIO: "xmpp.mute_audio",
+    CLOUDVERSIFY_UNMUTE_VIDEO: "xmpp.unmute_video",
+    CLOUDVERSIFY_UNMUTE_AUDIO: "xmpp.unmute_audio"
 };
 
 module.exports = JitsiConferenceEvents;

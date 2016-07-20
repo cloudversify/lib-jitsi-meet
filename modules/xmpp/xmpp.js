@@ -31,7 +31,7 @@ function initStrophePlugins(XMPP) {
     require("./strophe.util")();
     require("./strophe.ping")(XMPP, XMPP.eventEmitter);
     require("./strophe.rayo")();
-    require("./strophe.focusAdmin")();
+    require("./strophe.focusAdmin")(XMPP,XMPP.eventEmitter);
     require("./strophe.logger")();
 }
 
@@ -252,20 +252,20 @@ XMPP.prototype.createRoom = function (roomName, options, settings) {
     return this.connection.emuc.createRoom(roomjid, null, options, settings);
 }
 
-XMPP.prototype.sendRemoteMuteAudio = function (jid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteMuteAudio(jid, ssrc);
+XMPP.prototype.sendRemoteMuteAudio = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteMuteAudio(Jid);
 }
 
-XMPP.prototype.sendRemoteUnmuteAudio = function (jid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteUnmuteAudio(jid, ssrc);
+XMPP.prototype.sendRemoteUnmuteAudio = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteUnmuteAudio(Jid);
 }
 
-XMPP.prototype.sendRemoteMuteVideo = function (jid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteMuteVideo(jid,ssrc);
+XMPP.prototype.sendRemoteMuteVideo = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteMuteVideo(Jid);
 }
 
-XMPP.prototype.sendRemoteUnmuteVideo = function (jid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteUnmuteVideo(jid, ssrc);
+XMPP.prototype.sendRemoteUnmuteVideo = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteUnmuteVideo(Jid);
 }
 
 XMPP.prototype.addListener = function(type, listener) {
