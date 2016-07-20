@@ -4,7 +4,7 @@
   "description": "JS library for accessing Jitsi server side deployments - forked and modified by Cloudversify Inc.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cloudversify/jitsi-meet.git"
+    "url": "git://github.com/cloudversify/jitsi-meet"
   },
   "keywords": [
     "jingle",
@@ -23,7 +23,7 @@
     "retry": "0.6.1",
     "jssha": "1.5.0",
     "es6-promise": "*",
-    "jitsi-meet-logger": "github:jitsi/jitsi-meet-logger",
+    "jitsi-meet-logger": "jitsi/jitsi-meet-logger",
     "strophe": "^1.2.2",
     "strophejs-plugins": "^0.0.6",
     "socket.io-client": "1.3.6"
@@ -49,47 +49,5 @@
     "lint"
   ],
   "main": "./JitsiMeetJS.js",
-  "license": "Apache-2.0",
-  "gitHead": "f910729326882e88b2b8b318ca7192dc92541a46",
-  "bugs": {
-    "url": "https://github.com/cloudversify/jitsi-meet/issues"
-  },
-  "homepage": "https://github.com/cloudversify/jitsi-meet#readme",
-  "_id": "@cloudversify/lib-jitsi-meet@1.0.2",
-  "_shasum": "4a5c0db3e63ccfe6c2eb81f058dc8f4999464b68",
-  "_from": "@cloudversify/lib-jitsi-meet@1.0.2",
-  "_npmVersion": "2.14.12",
-  "_nodeVersion": "4.3.1",
-  "_npmUser": {
-    "name": "darkdigitaldream",
-    "email": "kylethedeveloper@gmail.com"
-  },
-  "dist": {
-    "shasum": "4a5c0db3e63ccfe6c2eb81f058dc8f4999464b68",
-    "tarball": "https://registry.npmjs.org/@cloudversify/lib-jitsi-meet/-/lib-jitsi-meet-1.0.2.tgz"
-  },
-  "maintainers": [
-    {
-      "name": "calderhayes",
-      "email": "calderhayes@gmail.com"
-    },
-    {
-      "name": "cloudversify-dev",
-      "email": "calder@cloudversify.com"
-    },
-    {
-      "name": "darkdigitaldream",
-      "email": "kylethedeveloper@gmail.com"
-    },
-    {
-      "name": "gablabelle",
-      "email": "gab@visualise.ca"
-    }
-  ],
-  "_npmOperationalInternal": {
-    "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/lib-jitsi-meet-1.0.2.tgz_1468534727113_0.4089266734663397"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/@cloudversify/lib-jitsi-meet/-/lib-jitsi-meet-1.0.2.tgz"
+  "license": "Apache-2.0"
 }
