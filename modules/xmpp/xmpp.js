@@ -252,20 +252,20 @@ XMPP.prototype.createRoom = function (roomName, options, settings) {
     return this.connection.emuc.createRoom(roomjid, null, options, settings);
 }
 
-XMPP.prototype.sendRemoteMuteAudio = function (focusJid, spoofJid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteMuteAudio(focusJid, spoofJid, ssrc);
+XMPP.prototype.sendRemoteMuteAudio = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteMuteAudio(Jid);
 }
 
-XMPP.prototype.sendRemoteUnmuteAudio = function (focusJid, spoofJid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteUnmuteAudio(focusJid, spoofJid, ssrc);
+XMPP.prototype.sendRemoteUnmuteAudio = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteUnmuteAudio(Jid);
 }
 
-XMPP.prototype.sendRemoteMuteVideo = function (focusJid, spoofJid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteMuteVideo(focusJid, spoofJid, ssrc);
+XMPP.prototype.sendRemoteMuteVideo = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteMuteVideo(Jid);
 }
 
-XMPP.prototype.sendRemoteUnmuteVideo = function (focusJid, spoofJid, ssrc) {
-    return this.connection.focusAdmin.sendRemoteUnmuteVideo(focusJid, spoofJid, ssrc);
+XMPP.prototype.sendRemoteUnmuteVideo = function (Jid) {
+    return this.connection.focusAdmin.sendRemoteUnmuteVideo(Jid);
 }
 
 XMPP.prototype.addListener = function(type, listener) {

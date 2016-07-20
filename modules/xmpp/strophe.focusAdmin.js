@@ -18,20 +18,10 @@ module.exports = function(XMPP, eventEmitter) {
             this.connection.addHandler(this.unmuteVideo.bind(this), 'cloudversify:unmutevideo', 'iq', 'set', null, null, null);
             this.connection.addHandler(this.unmuteAudio.bind(this), 'cloudversify:unmuteaudio', 'iq', 'set', null, null, null);
         },
-        sendRemoteMuteAudio: function (focusJid, spoofJid, ssrc){
-            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
-
-            //console.log("sending to JID: ", focusJid)
-            console.log("sending to JID: ", spoofJid)
-            var iq = $iq({to: spoofJid,
-                //xmlns:'cloudversify:focusAdmin',
-                //action: 'mute',
+        sendRemoteMuteAudio: function (Jid){
+            console.log("sending to JID: ", Jid)
+            var iq = $iq({to: Jid,
                 type: 'set'})
-
-            // var iq = $iq({to: spoofJid,
-            //     type: 'set',
-            //     id: 'muteVideo',
-            //     xmlns: 'cloudversify:focusAdmin'})
                 .c('mute', {xmlns: 'cloudversify:muteaudio',
                     action: 'muteAudio'})
 
@@ -44,20 +34,9 @@ module.exports = function(XMPP, eventEmitter) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteAudio: function (focusJid, spoofJid, ssrc){
-            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
-
-            //console.log("sending to JID: ", focusJid)
-            console.log("sending to JID: ", spoofJid)
-            var iq = $iq({to: spoofJid,
-                //xmlns:'cloudversify:focusAdmin',
-                //action: 'mute',
-                type: 'set'})
-
-            // var iq = $iq({to: spoofJid,
-            //     type: 'set',
-            //     id: 'muteVideo',
-            //     xmlns: 'cloudversify:focusAdmin'})
+        sendRemoteUnmuteAudio: function (Jid){
+            console.log("sending to JID: ", Jid)
+            var iq = $iq({to: Jid, type: 'set'})
                 .c('unmute', {xmlns: 'cloudversify:unmuteaudio',
                     action: 'unmuteAudio'})
 
@@ -70,20 +49,9 @@ module.exports = function(XMPP, eventEmitter) {
                 success,
                 failure);
         },
-        sendRemoteMuteVideo: function (focusJid, spoofJid, ssrc){
-            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
-
-            //console.log("sending to JID: ", focusJid)
-            console.log("sending to JID: ", spoofJid)
-            var iq = $iq({to: spoofJid,
-                //xmlns:'cloudversify:focusAdmin',
-                //action: 'mute',
-                type: 'set'})
-
-            // var iq = $iq({to: spoofJid,
-            //     type: 'set',
-            //     id: 'muteVideo',
-            //     xmlns: 'cloudversify:focusAdmin'})
+        sendRemoteMuteVideo: function (Jid){
+            console.log("sending to JID: ", Jid)
+            var iq = $iq({to: spoofJid, type: 'set'})
                 .c('mute', {xmlns: 'cloudversify:mutevideo',
                     action: 'muteVideo'})
 
@@ -96,20 +64,9 @@ module.exports = function(XMPP, eventEmitter) {
                 success,
                 failure);
         },
-        sendRemoteUnmuteVideo: function (focusJid, spoofJid, ssrc){
-            //this.sendRemoteMVideo(focusJid, spoofJid, ssrc);
-
-            //console.log("sending to JID: ", focusJid)
-            console.log("sending to JID: ", spoofJid)
-            var iq = $iq({to: spoofJid,
-                //xmlns:'cloudversify:focusAdmin',
-                //action: 'mute',
-                type: 'set'})
-
-            // var iq = $iq({to: spoofJid,
-            //     type: 'set',
-            //     id: 'muteVideo',
-            //     xmlns: 'cloudversify:focusAdmin'})
+        sendRemoteUnmuteVideo: function (Jid){
+            console.log("sending to JID: ", Jid)
+            var iq = $iq({to: Jid, type: 'set'})
                 .c('unmute', {xmlns: 'cloudversify:unmutevideo',
                     action: 'unmuteVideo'})
 
@@ -129,8 +86,7 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            console.log("Mute Video event?", iq)
-            console.log('eventemitter: ', eventEmitter)
+            console.log("Mute Video event", iq)
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_VIDEO);
             this.connection.send(ack);
             return true;
@@ -142,8 +98,7 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            console.log("Unmute Video event?", iq)
-            console.log('eventemitter: ', eventEmitter)
+            console.log("Unmute Video event", iq)
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_VIDEO);
             this.connection.send(ack);
             return true;
@@ -155,8 +110,7 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            console.log("Mute Video event?", iq)
-            console.log('eventemitter: ', eventEmitter)
+            console.log("Mute Video event", iq)
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_AUDIO);
             this.connection.send(ack);
             return true;
@@ -168,8 +122,7 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            console.log("Unmute Video event?", iq)
-            console.log('eventemitter: ', eventEmitter)
+            console.log("Unmute Video event", iq)
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_AUDIO);
             this.connection.send(ack);
             return true;

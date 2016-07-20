@@ -13,6 +13,7 @@
     "browser"
   ],
   "author": "",
+  "readmeFilename": "README.md",
   "dependencies": {
     "events": "*",
     "pako": "*",
