@@ -12,17 +12,7 @@ var XMPPEvents = require("../../service/xmpp/XMPPEvents");
 var RTCBrowserType = require("../RTC/RTCBrowserType");
 var RTC = require("../RTC/RTC");
 var GlobalOnErrorHandler = require("../util/GlobalOnErrorHandler");
-
-/**
-* The local ICE username fragment for this session.       
-*/        
-this.localUfrag = null;        
-       
-/**        
-* The remote ICE username fragment for this session.      
-*/        
-this.remoteUfrag = null;       
-       
+   
 /**
  * Constant tells how long we're going to wait for IQ response, before timeout
  * error is  triggered.
@@ -45,6 +35,16 @@ function JingleSessionPC(me, sid, peerjid, connection,
     this.modifyingLocalStreams = false;
     this.modifiedSSRCs = {};
 
+    /**
+    * The local ICE username fragment for this session.       
+    */        
+    this.localUfrag = null;        
+           
+    /**        
+    * The remote ICE username fragment for this session.      
+    */        
+    this.remoteUfrag = null;       
+    
     /**
      * A map that stores SSRCs of remote streams. And is used only locally
      * We store the mapping when jingle is received, and later is used
@@ -811,14 +811,14 @@ JingleSessionPC.prototype._modifySources = function (successCallback, queueCallb
                         /* offer */ sdp,
                         /* answer */ modifiedAnswer);
                     answer.sdp = modifiedAnswer.raw;
+                    self.localSDP = new SDP(answer.sdp);
+                    answer.sdp = self.localSDP.raw;
                     var ufrag = getUfrag(answer.sdp);      
                     if (ufrag != self.localUfrag) {        
                         self.localUfrag = ufrag;       
                         self.room.eventEmitter.emit(       
                                 XMPPEvents.LOCAL_UFRAG_CHANGED, ufrag);        
                     }
-                    self.localSDP = new SDP(answer.sdp);
-                    answer.sdp = self.localSDP.raw;
                     self.peerconnection.setLocalDescription(answer,
                         function() {
                             successCallback && successCallback();
