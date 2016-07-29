@@ -1296,7 +1296,7 @@ function setupListeners(conference) {
     conference.room.addListener(XMPPEvents.REMOTE_UFRAG_CHANGED, function (ufrag) {
         Statistics.sendLog("Remote ufrag: " + ufrag);
     });
-    
+
     conference.room.addListener(XMPPEvents.REMOTE_TRACK_ADDED,
         function (data) {
             var track = conference.rtc.createRemoteTrack(data);
