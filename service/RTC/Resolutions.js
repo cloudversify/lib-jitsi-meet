@@ -56,5 +56,6 @@ var Resolutions = {
         height: 120,
         order: 0
     }
+
 };
 module.exports = Resolutions;
