@@ -14,6 +14,16 @@ var RTC = require("../RTC/RTC");
 var GlobalOnErrorHandler = require("../util/GlobalOnErrorHandler");
 
 /**
+* The local ICE username fragment for this session.       
+*/        
+this.localUfrag = null;        
+       
+/**        
+* The remote ICE username fragment for this session.      
+*/        
+this.remoteUfrag = null;       
+       
+/**
  * Constant tells how long we're going to wait for IQ response, before timeout
  * error is  triggered.
  * @type {number}
@@ -78,6 +88,7 @@ JingleSessionPC.prototype.doInitialize = function () {
             // complete.
             return;
         }
+        // XXX this is broken, candidate is not parsed.
         var candidate = ev.candidate;
         if (candidate) {
             // Discard candidates of disabled protocols.
@@ -771,8 +782,16 @@ JingleSessionPC.prototype._modifySources = function (successCallback, queueCallb
            err = new Error(errmsg); // for queueCallback
         }
         GlobalOnErrorHandler.callErrorHandler(new Error(errmsg));
-        queueCallback(err);
+        queueCallback(err);    
     };
+
+    var ufrag = getUfrag(sdp.raw);     
+    if (ufrag != self.remoteUfrag) {       
+        self.remoteUfrag = ufrag;      
+        self.room.eventEmitter.emit(       
+            XMPPEvents.REMOTE_UFRAG_CHANGED, ufrag);
+    }
+
     this.peerconnection.setRemoteDescription(
         new RTCSessionDescription({type: 'offer', sdp: sdp.raw}),
         function() {
@@ -792,6 +811,12 @@ JingleSessionPC.prototype._modifySources = function (successCallback, queueCallb
                         /* offer */ sdp,
                         /* answer */ modifiedAnswer);
                     answer.sdp = modifiedAnswer.raw;
+                    var ufrag = getUfrag(answer.sdp);      
+                    if (ufrag != self.localUfrag) {        
+                        self.localUfrag = ufrag;       
+                        self.room.eventEmitter.emit(       
+                                XMPPEvents.LOCAL_UFRAG_CHANGED, ufrag);        
+                    }
                     self.localSDP = new SDP(answer.sdp);
                     answer.sdp = self.localSDP.raw;
                     self.peerconnection.setLocalDescription(answer,
@@ -1428,6 +1453,17 @@ function createDescriptionNode(jingle, mtype) {
         desc = content.find(">description");
     }
     return desc;
+}
+
+/**        
+ * Extracts the ice username fragment from an SDP string.      
+ */        
+function getUfrag(sdp) {       
+    var ufragLines = sdp.split('\n').filter(function(line) {       
+        return line.startsWith("a=ice-ufrag:");});     
+    if (ufragLines.length > 0) {       
+        return ufragLines[0].substr("a=ice-ufrag:".length)     
+    }      
 }
 
 module.exports = JingleSessionPC;
