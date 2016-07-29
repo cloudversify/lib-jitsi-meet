@@ -66,6 +66,7 @@ var LibJitsiMeet = {
     logLevels: Logger.levels,
     mediaDevices: JitsiMediaDevices,
     init: function (options) {
+        console.log('jitsi meet init: ', options)
         Statistics.audioLevelsEnabled = !options.disableAudioLevels;
 
         if(typeof options.audioLevelsInterval === 'number') {

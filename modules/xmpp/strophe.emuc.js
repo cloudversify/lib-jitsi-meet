@@ -25,6 +25,7 @@ module.exports = function(XMPP) {
                 'http://jitsi.org/jitmeet/audio', 'iq', 'set',null,null);
         },
         createRoom: function (jid, password, options, settings) {
+            console.log('createRoom: ', settings)
             var roomJid = Strophe.getBareJidFromJid(jid);
             if (this.rooms[roomJid]) {
                 var errmsg = "You are already in the room!";

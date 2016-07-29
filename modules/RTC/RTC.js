@@ -99,6 +99,7 @@ RTC.obtainAudioAndVideoPermissions = function (options) {
 };
 
 RTC.prototype.onIncommingCall = function(event) {
+    console.log("onIncomingCall adds data channel if true: ", this.options.config.openSctp)
     if(this.options.config.openSctp)
         this.dataChannels = new DataChannels(event.peerconnection,
             this.eventEmitter);

@@ -141,6 +141,7 @@ Moderator.prototype.createConferenceIq =  function () {
             }).up();
     }
     if (this.options.conference.channelLastN !== undefined) {
+        console.log('setting channel last n: ',this.options.conference.channelLastN )
         elem.c(
             'property', {
                 name: 'channelLastN',
@@ -237,6 +238,7 @@ Moderator.prototype.createConferenceIq =  function () {
             value: 'rewriting'
         }).up();
     elem.up();
+    console.log('creating conferenceIQ: ', elem)
     return elem;
 };
 

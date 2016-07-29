@@ -13,6 +13,7 @@ var GlobalOnErrorHandler = require("../util/GlobalOnErrorHandler");
  * @param peerConnection WebRTC peer connection instance.
  */
 function DataChannels(peerConnection, emitter) {
+    console.log('creating data channel event handlers')
     peerConnection.ondatachannel = this.onDataChannel.bind(this);
     this.eventEmitter = emitter;
 
@@ -79,12 +80,15 @@ DataChannels.prototype.onDataChannel = function (event) {
     };
 
     dataChannel.onmessage = function (event) {
+        console.log("datachannel onmessage: ", event)
         var data = event.data;
         // JSON
         var obj;
 
         try {
             obj = JSON.parse(data);
+            console.log('obj: ', obj)
+            console.log('type: ', typeof(obj))
         }
         catch (e) {
             GlobalOnErrorHandler.callErrorHandler(e);
@@ -97,10 +101,12 @@ DataChannels.prototype.onDataChannel = function (event) {
         if (('undefined' !== typeof(obj)) && (null !== obj)) {
             var colibriClass = obj.colibriClass;
 
+            console.log('colibriClass: ', colibriClass)
+
             if ("DominantSpeakerEndpointChangeEvent" === colibriClass) {
                 // Endpoint ID from the Videobridge.
                 var dominantSpeakerEndpoint = obj.dominantSpeakerEndpoint;
-
+                console.log('dominantSpeakerEndpointChange')
                 logger.info(
                     "Data channel new dominant speaker event: ",
                     dominantSpeakerEndpoint);

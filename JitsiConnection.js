@@ -70,6 +70,7 @@ JitsiConnection.prototype.setToken = function (token) {
  * @returns {JitsiConference} returns the new conference object.
  */
 JitsiConnection.prototype.initJitsiConference = function (name, options) {
+    console.log('initJitsiConference options: ', options)
     var conference
         = new JitsiConference({name: name, config: options, connection: this});
     this.conferences[name] = conference;

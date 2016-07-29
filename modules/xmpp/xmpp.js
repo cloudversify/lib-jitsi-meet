@@ -233,6 +233,8 @@ XMPP.prototype.connect = function (jid, password) {
 };
 
 XMPP.prototype.createRoom = function (roomName, options, settings) {
+    console.log('settings:', settings)
+    console.log('options:', options)
     var roomjid = roomName  + '@' + this.options.hosts.muc;
 
     if (options.useNicks) {
