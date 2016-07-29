@@ -35,8 +35,6 @@ function JitsiConference(options) {
         logger.error(errmsg);
         throw new Error(errmsg);
     }
-
-    console.log('new jitsi conference: ', options)
     this.options = options;
     this.connection = this.options.connection;
     this.xmpp = this.connection.xmpp;
