@@ -3,17 +3,8 @@
 var logger = require("jitsi-meet-logger").getLogger(__filename);
 //var XMPPEvents = require("../../service/xmpp/XMPPEvents");
 var JitsiConferenceEvents = require("../../JitsiConferenceEvents");
-<<<<<<< HEAD
 success = function(){};
 failure = function(){};
-=======
-var success = function(){
-    logger.log('sendIQ returned success');
-};
-var failure = function(){
-    logger.log('sendIQ returned failure');
-};
->>>>>>> master
 module.exports = function(XMPP, eventEmitter) {
     Strophe.addConnectionPlugin('focusAdmin', {
         connection: null,
