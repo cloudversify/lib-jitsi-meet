@@ -337,7 +337,7 @@ CallStats.prototype.sendTerminateEvent = _try_catch(function () {
  * @param {CallStats} cs callstats instance related to the error (optional)
  */
 CallStats.prototype.sendDetectedAudioProblem = _try_catch(function (e) {
-    CallStats._reportError.call(this, wrtcFuncNames.signalingError, e,
+    CallStats._reportError.call(this, wrtcFuncNames.applicationLog, e,
         this.peerconnection);
 });
 
@@ -472,5 +472,13 @@ CallStats.sendApplicationLog = _try_catch(function (e, cs) {
     CallStats._reportError
         .call(cs, wrtcFuncNames.applicationLog, e, null);
 });
+
+/**
+ * Clears allocated resources.
+ */
+CallStats.dispose = function () {
+    callStats = null;
+    CallStats.initialized = false;
+};
 
 module.exports = CallStats;

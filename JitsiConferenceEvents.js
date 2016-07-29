@@ -140,7 +140,13 @@ var JitsiConferenceEvents = {
     CLOUDVERSIFY_MUTE_VIDEO: "xmpp.mute_video",
     CLOUDVERSIFY_MUTE_AUDIO: "xmpp.mute_audio",
     CLOUDVERSIFY_UNMUTE_VIDEO: "xmpp.unmute_video",
-    CLOUDVERSIFY_UNMUTE_AUDIO: "xmpp.unmute_audio"
+    CLOUDVERSIFY_UNMUTE_AUDIO: "xmpp.unmute_audio",
+
+    /**
+     * Indicates that a message from another participant is received on
+     * data channel.
+     */
+    ENDPOINT_MESSAGE_RECEIVED: "conference.endpoint_message_received"
 };
 
 module.exports = JitsiConferenceEvents;
