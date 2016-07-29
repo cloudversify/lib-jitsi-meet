@@ -918,21 +918,17 @@ JitsiConference.prototype.getConnectionTimes = function () {
 };
 
 JitsiConference.prototype.sendRemoteMuteAudio = function (jid) {
-    //console.log("sending to focus ", this.room.focusMucJid)
     this.xmpp.sendRemoteMuteAudio(jid)
 };
 
 JitsiConference.prototype.sendRemoteMuteVideo = function (jid) {
-    //console.log("sending to focus ", this.room.focusMucJid)
     this.xmpp.sendRemoteMuteVideo(jid)
 };
 JitsiConference.prototype.sendRemoteUnmuteAudio = function (jid) {
-    //console.log("sending to focus ", this.room.focusMucJid)
     this.xmpp.sendRemoteUnmuteAudio(jid)
 };
 
 JitsiConference.prototype.sendRemoteUnmuteVideo = function (jid) {
-    //console.log("sending to focus ", this.room.focusMucJid)
     this.xmpp.sendRemoteUnmuteVideo(jid)
 };
 /**
