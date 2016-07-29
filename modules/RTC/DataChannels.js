@@ -100,7 +100,6 @@ DataChannels.prototype.onDataChannel = function (event) {
             if ("DominantSpeakerEndpointChangeEvent" === colibriClass) {
                 // Endpoint ID from the Videobridge.
                 var dominantSpeakerEndpoint = obj.dominantSpeakerEndpoint;
-
                 logger.info(
                     "Data channel new dominant speaker event: ",
                     dominantSpeakerEndpoint);

@@ -3,12 +3,8 @@
 var logger = require("jitsi-meet-logger").getLogger(__filename);
 //var XMPPEvents = require("../../service/xmpp/XMPPEvents");
 var JitsiConferenceEvents = require("../../JitsiConferenceEvents");
-var success = function(){
-    logger.log('sendIQ returned success');
-};
-var failure = function(){
-    logger.log('sendIQ returned failure');
-};
+success = function(){};
+failure = function(){};
 module.exports = function(XMPP, eventEmitter) {
     Strophe.addConnectionPlugin('focusAdmin', {
         connection: null,
@@ -25,7 +21,6 @@ module.exports = function(XMPP, eventEmitter) {
                 'cloudversify:unmuteaudio', 'iq', 'set', null, null, null);
         },
         sendRemoteMuteAudio: function (Jid){
-            logger.log("sending to JID: ", Jid);
             var iq = $iq({to: Jid,
                 type: 'set'})
                 .c('mute', {xmlns: 'cloudversify:muteaudio',
@@ -34,14 +29,12 @@ module.exports = function(XMPP, eventEmitter) {
             // Calling tree() to print something useful
             iq = iq.tree();
             logger.info("Sending mute", iq);
-            logger.log('sending mute', iq);
 
             this.connection.sendIQ(iq,
                 success,
                 failure);
         },
         sendRemoteUnmuteAudio: function (Jid){
-            logger.log("sending to JID: ", Jid);
             var iq = $iq({to: Jid, type: 'set'})
                 .c('unmute', {xmlns: 'cloudversify:unmuteaudio',
                     action: 'unmuteAudio'});
@@ -49,14 +42,12 @@ module.exports = function(XMPP, eventEmitter) {
             // Calling tree() to print something useful
             iq = iq.tree();
             logger.info("Sending unmute", iq);
-            logger.log('sending unmute', iq);
 
             this.connection.sendIQ(iq,
                 success,
                 failure);
         },
         sendRemoteMuteVideo: function (Jid){
-            logger.log("sending to JID: ", Jid);
             var iq = $iq({to: Jid, type: 'set'})
                 .c('mute', {xmlns: 'cloudversify:mutevideo',
                     action: 'muteVideo'});
@@ -64,14 +55,12 @@ module.exports = function(XMPP, eventEmitter) {
             // Calling tree() to print something useful
             iq = iq.tree();
             logger.info("Sending mute", iq);
-            logger.log('sending mute', iq);
 
             this.connection.sendIQ(iq,
                 success,
                 failure);
         },
         sendRemoteUnmuteVideo: function (Jid){
-            logger.log("sending to JID: ", Jid);
             var iq = $iq({to: Jid, type: 'set'})
                 .c('unmute', {xmlns: 'cloudversify:unmutevideo',
                     action: 'unmuteVideo'});
@@ -79,7 +68,6 @@ module.exports = function(XMPP, eventEmitter) {
             // Calling tree() to print something useful
             iq = iq.tree();
             logger.info("Sending unmute", iq);
-            logger.log('sending unmute', iq);
 
             this.connection.sendIQ(iq,
                 success,
@@ -92,7 +80,6 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            logger.log("Mute Video event", iq);
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_VIDEO);
             this.connection.send(ack);
             return true;
@@ -104,7 +91,6 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            logger.log("Unmute Video event", iq);
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_VIDEO);
             this.connection.send(ack);
             return true;
@@ -116,7 +102,6 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            logger.log("Mute Video event", iq);
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_MUTE_AUDIO);
             this.connection.send(ack);
             return true;
@@ -128,7 +113,6 @@ module.exports = function(XMPP, eventEmitter) {
                 to: fromJid,
                 id: iq.getAttribute('id')
             });
-            logger.log("Unmute Video event", iq);
             eventEmitter.emit(JitsiConferenceEvents.CLOUDVERSIFY_UNMUTE_AUDIO);
             this.connection.send(ack);
             return true;
