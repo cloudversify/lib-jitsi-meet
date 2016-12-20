@@ -203,7 +203,7 @@ DataChannels.prototype.sendSelectedEndpointMessage = function (endpointId) {
  * or Error with "No opened data channels found!" message.
  */
 DataChannels.prototype.sendPinnedEndpointMessage = function (endpointId) {
-    this._onXXXEndpointChanged("pinnned", endpointId);
+    this._onXXXEndpointChanged("pinned", endpointId);
 };
 
 DataChannels.prototype.handleSelectedEndpointEvent = function (userResource) {
@@ -212,7 +212,7 @@ DataChannels.prototype.handleSelectedEndpointEvent = function (userResource) {
 };
 
 DataChannels.prototype.handlePinnedEndpointEvent = function (userResource) {
-    this._onXXXEndpointChanged("pinnned", userResource);
+    this._onXXXEndpointChanged("pinned", userResource);
 };
 
 /**
